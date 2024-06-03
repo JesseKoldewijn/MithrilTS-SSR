@@ -1,5 +1,5 @@
 {
-  "name": "mith-jereko.dev",
+  "name": "solid.jereko.dev",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -12,13 +12,14 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
+    "@astrojs/solid-js": "^4.2.0",
+    "@kobalte/core": "^0.13.2",
     "astro": "^4.9.2",
-    "astro-mithril": "^0.0.7",
-    "mithril": "^2.2.2"
+    "class-variance-authority": "^0.7.0",
+    "solid-js": "^1.8.17"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/mithril": "^2.2.6",
     "@types/node": "^20.14.0",
     "clsx": "^2.1.1",
     "postcss": "^8.4.38",

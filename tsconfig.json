@@ -23,9 +23,8 @@
     "allowUnusedLabels": false,
     "types": [],
 
-    "jsx": "react",
-    "jsxFactory": "m",
-    "jsxFragmentFactory": "m.Fragment",
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
 
     "baseUrl": ".",
     "paths": {
