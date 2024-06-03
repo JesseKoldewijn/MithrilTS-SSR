@@ -1,14 +1,21 @@
 ---
-import Counter from "@/components/interactive/counter/Counter"
+import Counter from "@/components/counter/Counter"
 import RootLayout from "../layouts/RootLayout.astro"
+import SolidLogo from "@/components/logos/solid"
+import AstroLogo from "@/components/logos/astro"
 ---
 
 <RootLayout>
-  <div class="flex min-h-screen w-full flex-col items-center justify-center gap-4">
-    <h1>Astro</h1>
+  <div class="flex min-h-screen w-full flex-col items-center justify-center gap-6">
+    <h1 class="flex items-center gap-2 text-4xl font-semibold">
+      Solid <div class="inline-flex h-10 w-10 items-center justify-center"><SolidLogo /></div> + Astro.js
+      <div class="inline-flex h-10 w-10 items-center justify-center">
+        <AstroLogo size={60} class="mt-4 h-10 w-10" />
+      </div>
+    </h1>
     <div class="flex flex-col items-center justify-center gap-4">
-      <Counter class="!flex-col" count={10} client:visible> This Counter is interactive </Counter>
-      <Counter class="!flex-col" count={10}> This Counter is not interactive </Counter>
+      <Counter class="!flex-col" count={10} client:load>This Counter is interactive</Counter>
+      <Counter class="!flex-col" count={10}>This Counter is not interactive</Counter>
     </div>
   </div>
 </RootLayout>

@@ -14,6 +14,7 @@
     "@astrojs/check": "^0.7.0",
     "@astrojs/solid-js": "^4.2.0",
     "@kobalte/core": "^0.13.2",
+    "@kobalte/utils": "^0.9.0",
     "astro": "^4.9.2",
     "class-variance-authority": "^0.7.0",
     "solid-js": "^1.8.17"

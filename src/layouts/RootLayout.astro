@@ -1,4 +1,5 @@
 ---
+import ThemeProvider from "@/providers/ThemeProvider"
 import "@/styles/tailwind.css"
 
 interface Props {
@@ -8,9 +9,10 @@ interface Props {
 
 const { title: titleProp, desc: descProp }: Props = Astro.props
 
-const title = titleProp ? `${titleProp} | Mithril Jereko` : "Mithril Jereko"
+const title = titleProp ? `${titleProp} | Solid + Astro Jereko` : "Solid + Astro Jereko"
 const desc =
-  descProp ?? "Mithril Jereko is a simple, fast, and lightweight Mithril.js starter template."
+  descProp ??
+  "Solid + Astro Jereko is a simple, fast, and lightweight Solid.js + Astro.js starter template."
 ---
 
 <html lang="en" data-kb-theme="dark">
@@ -23,6 +25,8 @@ const desc =
     <meta name="description" content={desc} />
   </head>
   <body>
-    <slot />
+    <ThemeProvider client:idle>
+      <slot />
+    </ThemeProvider>
   </body>
 </html>
