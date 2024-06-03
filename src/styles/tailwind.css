@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0, 100%, 100%;
+    --foreground: 0, 100%, 0%;
+
+    --card: 0, 100%, 100%;
+    --card-foreground: 0, 100%, 0%;
+
+    --popover: 0, 100%, 100%;
+    --popover-foreground: 0, 100%, 0%;
+
+    --primary: 0, 19%, 18%;
+    --primary-foreground: 0, 100%, 100%;
+
+    --secondary: 60, 2%, 92%;
+    --secondary-foreground: 0, 19%, 18%;
+
+    --muted: 60, 2%, 92%;
+    --muted-foreground: 60, 1%, 42%;
+
+    --accent: 60, 2%, 92%;
+    --accent-foreground: 0, 18%, 18%;
+
+    --destructive: 0, 100%, 60%;
+    --destructive-foreground: 0, 100%, 100%;
+
+    --border: 60, 1%, 85%;
+    --input: 60, 1%, 85%;
+    --ring: 0, 100%, 0%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 60, 2%, 5%;
+    --foreground: 0, 100%, 100%;
+
+    --card: 0, 100%, 0%;
+    --card-foreground: 0, 100%, 100%;
+
+    --popover: 0, 100%, 0%;
+    --popover-foreground: 0, 100%, 100%;
+
+    --primary: 0, 100%, 100%;
+    --primary-foreground: 0, 19%, 18%;
+
+    --secondary: 60, 1%, 15%;
+    --secondary-foreground: 0, 100%, 100%;
+
+    --muted: 60, 1%, 15%;
+    --muted-foreground: 60, 1%, 68%;
+
+    --accent: 60, 1%, 15%;
+    --accent-foreground: 0, 100%, 100%;
+
+    --destructive: 0, 100%, 60%;
+    --destructive-foreground: 0, 100%, 100%;
+
+    --border: 60, 1%, 15%;
+    --input: 60, 1%, 15%;
+    --ring: 60, 1%, 84%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border font-sans;
+  }
+
+  /* width */
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  *::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    @apply bg-transparent;
+  }
+
+  /* Handle */
+  *::-webkit-scrollbar-thumb {
+    @apply bg-neutral-400 dark:bg-neutral-600;
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-500 dark:bg-neutral-500;
+  }
+
+  :root {
+    @apply scroll-smooth bg-background text-foreground;
+  }
+
+  body,
+  html {
+    @apply m-0 p-0;
+  }
+}

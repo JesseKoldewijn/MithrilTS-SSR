@@ -1,0 +1,28 @@
+---
+import "@/styles/tailwind.css"
+
+interface Props {
+  title?: string
+  desc?: string
+}
+
+const { title: titleProp, desc: descProp }: Props = Astro.props
+
+const title = titleProp ? `${titleProp} | Mithril Jereko` : "Mithril Jereko"
+const desc =
+  descProp ?? "Mithril Jereko is a simple, fast, and lightweight Mithril.js starter template."
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={desc} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
