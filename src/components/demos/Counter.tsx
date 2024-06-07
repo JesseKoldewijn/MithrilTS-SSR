@@ -1,3 +1,4 @@
+import { ArrowDown, ArrowUp } from "lucide-solid"
 import { type JSX, Show, createSignal, onMount, splitProps } from "solid-js"
 
 import { TextField, TextFieldRoot } from "@/components/ui/textfield"
@@ -107,10 +108,12 @@ const Counter = (props: CounterAttrs) => {
     <div class={cn("relative flex items-center justify-center gap-2", local.class)} {...rest}>
       <TextFieldRoot class="inset-0 flex flex-1 items-center justify-center gap-1 rounded-md border-2 !py-0 px-1">
         <button
-          class="flex h-10 w-10 select-none items-center justify-center text-center"
+          class="flex h-10 w-10 select-none items-center justify-center text-center font-semibold"
           onclick={subtract}
+          disabled={!isInteractive()}
+          aria-label="Subtract 1 from the count"
         >
-          -
+          <ArrowDown height={20} />
         </button>
         <TextField
           type="text"
@@ -123,10 +126,12 @@ const Counter = (props: CounterAttrs) => {
           disabled={!isInteractive()}
         />
         <button
-          class="flex h-10 w-10 select-none items-center justify-center text-center"
+          class="flex h-10 w-10 select-none items-center justify-center text-center font-semibold"
           onclick={add}
+          disabled={!isInteractive()}
+          aria-label="Add 1 to the count"
         >
-          +
+          <ArrowUp height={20} />
         </button>
       </TextFieldRoot>
       <Show when={local.children}>
