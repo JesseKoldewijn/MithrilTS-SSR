@@ -37,71 +37,69 @@ const Counter = (props: CounterAttrs) => {
     setter(value)
   }
 
-  const changeHandler = (
-    e: Event & {
+  const changeHandler = (e: any) => {
+    const event = e as KeyboardEvent & {
       target: HTMLInputElement
     }
-  ) => {
-    const inputVal = e.target.value
+    const inputVal = event.target.value
     const val = parseInt(inputVal)
 
     const value = validateInput(val, count())
 
     handleValue(value, (val) => {
       setCount(val)
-      e.target.value = val.toString()
+      event.target.value = val.toString()
     })
   }
 
-  const handleKeyUp = (
-    e: Event & {
+  const handleKeyUp = (e: any) => {
+    const event = e as KeyboardEvent & {
       target: HTMLInputElement
     }
-  ) => {
-    const inputVal = e.target.value
+    const inputVal = event.target.value
     const val = parseInt(inputVal)
 
     handleValue(val, (val) => {
       setCount(val)
-      e.target.value = val.toString()
+      event.target.value = val.toString()
     })
   }
 
-  const handleKeyDown = (
-    e: Event & {
+  const handleKeyDown = (e: any) => {
+    const event = e as {
+      preventDefault: () => void
       key: string
       ctrlKey: boolean
       metaKey: boolean
       target: HTMLInputElement
     }
-  ) => {
-    const isArrowDown = e.key === "ArrowDown"
-    const isArrowUp = e.key === "ArrowUp"
-    const isArrowX = e.key === "ArrowLeft" || e.key === "ArrowRight"
+    const isArrowDown = event.key === "ArrowDown"
+    const isArrowUp = event.key === "ArrowUp"
+    const isArrowX = event.key === "ArrowLeft" || event.key === "ArrowRight"
     const inputIsNaN = isNaN(parseInt(e.key))
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     const alphabetArray = alphabet.split("")
     const inputIsAlphabetical = !!alphabetArray.find((char) => char === e.key.toLowerCase())
-    const isSystemHotkey = e.ctrlKey || e.metaKey
+    const isSystemHotkey = event.ctrlKey || event.metaKey
 
     if (isArrowX) return
 
     if (isArrowDown) {
-      e.preventDefault()
+      event.preventDefault()
       subtract()
       return
     }
 
     if (isArrowUp) {
-      e.preventDefault()
+      event.preventDefault()
       add()
       return
     }
 
     if (inputIsNaN && inputIsAlphabetical && !isSystemHotkey) {
-      e.preventDefault()
+      event.preventDefault()
     }
   }
 

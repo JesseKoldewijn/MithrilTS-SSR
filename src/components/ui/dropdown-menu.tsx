@@ -86,10 +86,11 @@ type DropdownMenuItemLabelProps = DropdownMenuPrimitive.DropdownMenuItemLabelPro
 export const DropdownMenuItemLabel = <T extends ValidComponent = "div">(
   props: PolymorphicProps<T, DropdownMenuItemLabelProps>
 ) => {
-  const [local, rest] = splitProps(props as DropdownMenuItemLabelProps, ["class"])
+  const [local, rest] = splitProps(props as DropdownMenuItemLabelProps, ["class", "ref"])
 
   return (
     <DropdownMenuPrimitive.ItemLabel
+      ref={local.ref as any}
       as="div"
       class={cn("px-2 py-1.5 text-sm font-semibold", local.class)}
       {...rest}
