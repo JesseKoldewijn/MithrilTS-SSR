@@ -1,6 +1,9 @@
-import { useColorMode } from "@kobalte/core"
+import { type ColorMode, Skeleton, useColorMode } from "@kobalte/core"
 import type { DropdownMenuTriggerProps } from "@kobalte/core/dropdown-menu"
+import { LoaderCircle } from "lucide-solid"
+import { type Accessor, Show, Suspense, createSignal, onMount } from "solid-js"
 
+import { DarkIcon, LightIcon, SystemIcon } from "../icons/ThemeIcons"
 import { Button } from "./button"
 import {
   DropdownMenu,
@@ -10,83 +13,29 @@ import {
 } from "./dropdown-menu"
 
 const ModeToggle = () => {
-  const { setColorMode } = useColorMode()
+  const { colorMode, setColorMode } = useColorMode()
 
   return (
     <DropdownMenu placement="bottom-end">
       <DropdownMenuTrigger
         as={(props: DropdownMenuTriggerProps) => (
           <Button size="icon" class="h-10 w-10 px-0" {...props}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              class="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-            >
-              <path
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0-8 0m-5 0h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7l-.7.7m0 11.4l.7.7m-12.1-.7l-.7.7"
-              />
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"
-              />
-            </svg>
+            <CurrentIcon currentTheme={colorMode} />
             <span class="sr-only">Toggle theme</span>
           </Button>
         )}
       />
       <DropdownMenuContent class="min-w-[8rem]">
         <DropdownMenuItem onSelect={() => setColorMode("light")}>
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24">
-            <path
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0-8 0m-5 0h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7l-.7.7m0 11.4l.7.7m-12.1-.7l-.7.7"
-            />
-          </svg>
+          <LightIcon />
           <span>Light</span>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => setColorMode("dark")}>
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24">
-            <path
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"
-            />
-          </svg>
+          <DarkIcon />
           <span>Dark</span>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={() => setColorMode("system")}>
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24">
-            <path
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 19h18M5 7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"
-            />
-          </svg>
+          <SystemIcon />
           <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -95,3 +44,50 @@ const ModeToggle = () => {
 }
 
 export default ModeToggle
+
+const CurrentIcon = ({ currentTheme }: { currentTheme: Accessor<ColorMode> }) => {
+  const [isSystem, setIsSystem] = createSignal(false)
+  const [show, setShow] = createSignal(false)
+
+  onMount(() => {
+    const handler = (e?: MutationRecord[]) => {
+      const sysTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      setIsSystem(currentTheme() === sysTheme)
+      setShow(true)
+    }
+
+    const observer = new MutationObserver((e) => handler(e))
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      subtree: true,
+    })
+  })
+
+  return (
+    <div>
+      <Show when={show()}>
+        <Show when={!isSystem() && currentTheme() === "light"}>
+          <div class="flex items-center justify-center">
+            <LightIcon class="mx-auto h-6 w-6" />
+          </div>
+        </Show>
+        <Show when={!isSystem() && currentTheme() === "dark"}>
+          <div class="flex items-center justify-center">
+            <DarkIcon class="mx-auto h-6 w-6" />{" "}
+          </div>
+        </Show>
+        <Show when={isSystem()}>
+          <div class="flex items-center justify-center">
+            <SystemIcon class="mx-auto h-6 w-6" />
+          </div>
+        </Show>
+      </Show>
+      <Show when={!show()}>
+        <div class="flex items-center justify-center">
+          <LoaderCircle class="h-6 w-6 animate-spin" />
+        </div>
+      </Show>
+    </div>
+  )
+}
