@@ -1,4 +1,6 @@
 ---
+import { ViewTransitions } from "astro:transitions"
+
 import { pwaInfo } from "virtual:pwa-info"
 
 import ThemeProvider from "@/providers/ThemeProvider"
@@ -38,13 +40,34 @@ const desc =
       )
     }
     {process.env.NODE_ENV !== "development" && <script src="/src/components/pwa/pwa.ts" />}
+    <ViewTransitions />
   </head>
-  <body>
+  <body transition:animate="none">
     <ThemeProvider client:idle>
-      <nav class="fixed inset-x-0 top-0 flex w-screen items-center justify-between p-4">
-        Solid - Jereko
+      <nav
+        class="fixed inset-x-0 top-0 z-50 flex w-screen items-center justify-between p-4"
+        transition:animate="fade"
+        transition:name="navbar"
+        transition:persist
+      >
+        <strong>
+          <a href="/" class="text-lg font-bold"> Solid - Jereko </a>
+        </strong>
+        <div class="pointer-events-auto ml-auto flex gap-4">
+          <a
+            class="flex items-center justify-center rounded-md border border-background bg-foreground px-3 py-1 text-background transition-colors duration-300 ease-in-out hover:border-foreground hover:bg-background hover:text-foreground"
+            href="/">Home</a
+          >
+          <a
+            class="flex items-center justify-center rounded-md border border-background bg-foreground px-3 py-1 text-background transition-colors duration-300 ease-in-out hover:border-foreground hover:bg-background hover:text-foreground"
+            href="/about"
+            class="mr-4">About</a
+          >
+        </div>
       </nav>
-      <slot />
+      <main transition:animate="fade">
+        <slot />
+      </main>
     </ThemeProvider>
   </body>
 </html>

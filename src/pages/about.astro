@@ -1,0 +1,14 @@
+---
+import Counter from "@/components/demos/Counter"
+import RootLayout from "../layouts/RootLayout.astro"
+---
+
+<RootLayout title="About">
+  <div class="flex min-h-screen w-full flex-col items-center justify-center gap-6">
+    <h1 class="flex items-center gap-2 text-4xl font-semibold">About</h1>
+    <div class="flex flex-col items-center justify-center gap-4">
+      <Counter class="!flex-col" count={10} client:load>This Counter is interactive</Counter>
+      <Counter class="!flex-col" count={10}>This Counter is not interactive</Counter>
+    </div>
+  </div>
+</RootLayout>
