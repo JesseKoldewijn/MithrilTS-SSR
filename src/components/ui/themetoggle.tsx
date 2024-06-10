@@ -1,7 +1,7 @@
-import { type ColorMode, Skeleton, useColorMode } from "@kobalte/core"
+import { type ColorMode, useColorMode } from "@kobalte/core"
 import type { DropdownMenuTriggerProps } from "@kobalte/core/dropdown-menu"
 import { LoaderCircle } from "lucide-solid"
-import { type Accessor, Show, Suspense, createSignal, onMount } from "solid-js"
+import { type Accessor, Show, createSignal, onMount } from "solid-js"
 
 import { DarkIcon, LightIcon, SystemIcon } from "../icons/ThemeIcons"
 import { Button } from "./button"
