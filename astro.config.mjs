@@ -7,6 +7,7 @@ import manifest from "./src/manifest"
 
 // https://astro.build/config
 export default defineConfig({
+  output: "server",
   integrations: [
     solidJs(),
     AstroPWA({
